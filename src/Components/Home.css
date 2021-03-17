@@ -3,11 +3,12 @@
 }
 .home {
   width: 80%;
-  margin: 7%;
-  margin-top: 20px;
+  margin-left: 7%;
+  padding-top: 20px;
 }
 .search {
   margin-bottom: 20px;
+  padding-top: 20px;
 }
 .success {
   margin-right: 20px;
