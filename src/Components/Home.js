@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Home.css";
 import axios from "axios";
 import Pagination from "@material-ui/lab/Pagination";
-
+import configData from "../config/config.json";
 import { Table, Button } from "reactstrap";
 import Loader from "react-loader";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,20 +21,17 @@ function Home() {
   const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
     setPage(value);
-    var size = data.length;
     setSearchCity(
       data.slice(
-        value === 1 ? 0 : value * 50 - 50,
-        value * 50 <= size ? value * 50 : size
+        value === 1 ? 0 : (value - 1) * 50,
+        value * 50 <= data.length ? value * 50 : data.length
       )
     );
   };
   useEffect(() => {
     if (!loaded) {
       axios
-        .get(
-          "https://gist.githubusercontent.com/pratikg117/7ce66c7ade26a94772111334e40b287b/raw/fd5d7109921ca7a461a19ae73bfb71c9696bd139/Assignment%2520Json"
-        )
+        .get(configData.API_URL)
         .then(({ data }) => {
           setSearchCity(data.slice(0, 49));
           dispatch({
@@ -102,13 +99,13 @@ function Home() {
           class="form-control search"
           type="text"
           onChange={search}
-          placeholder="Search for State, District or "
+          placeholder="Search for State, District or City"
           aria-label="Search"
         />
         <Pagination
           className="pagination"
           color="primary"
-          count={data / 50}
+          count={Math.ceil(data.length / 50)}
           variant="outlined"
           shape="rounded"
           page={page}
@@ -164,7 +161,7 @@ function Home() {
           <Pagination
             className="pagination"
             color="primary"
-            count={data / 50}
+            count={Math.ceil(data.length / 50)}
             variant="outlined"
             shape="rounded"
             page={page}
