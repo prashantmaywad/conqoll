@@ -1,5 +1,14 @@
-.header{
-     position: sticky;
-    top: 0;
-    z-index: 100;
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header___btn {
+  margin-right: 5px;
+}
+.logo {
+  color: #28a745 !important;
+  font-size: xx-large;
+  font-style: italic;
+  font-weight: bold;
 }

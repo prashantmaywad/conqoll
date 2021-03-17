@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Home.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Table, Button } from "reactstrap";
@@ -19,12 +19,6 @@ function Shortlisted() {
   };
   return (
     <div className="home">
-      <input
-        class="form-control search"
-        type="text"
-        placeholder="Search"
-        aria-label="Search"
-      />
       <Table>
         <thead>
           <tr>

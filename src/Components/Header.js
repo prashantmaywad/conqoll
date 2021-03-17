@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./Header.css";
 import { ADD_CITY } from "../redux/actions";
+import { Link } from "react-router-dom";
 import {
   Navbar,
   NavbarBrand,
@@ -17,6 +18,7 @@ import {
   Form,
   Modal,
   Input,
+  Alert,
   Label,
   FormGroup,
 } from "reactstrap";
@@ -31,24 +33,29 @@ function Header() {
   var distinctState = [...new Set(data.map((x) => x.State))];
   var distinctDistrict = [...new Set(data.map((x) => x.District))];
   const [district, setDisctrict] = useState(distinctDistrict);
+  const [error, setError] = useState("");
 
   const toggle = () => setIsOpen(!isOpen);
-
   const [modal, setModal] = useState(false);
   const change = () => setModal(!modal);
   const addCity = (e) => {
     e.preventDefault();
-    dispatch({
-      type: ADD_CITY,
-      data: { State: StateValue, District: DistrictValue, City: CityValue },
-    });
-    change();
+    if (StateValue == "" || DistrictValue == "" || CityValue == "") {
+      setError("Please select all fields");
+    } else {
+      dispatch({
+        type: ADD_CITY,
+        data: { State: StateValue, District: DistrictValue, City: CityValue },
+      });
+      change();
+      setError("");
+    }
   };
   const loadDistrictFromState = (e) => {
     setStateValue(e.target.value);
     if (e.target.value) {
       distinctDistrict = [
-        ...new Set(data.map((x) => x.State == e.target.value && x.District)),
+        ...new Set(data.map((x) => x.State === e.target.value && x.District)),
       ];
       setDisctrict(distinctDistrict);
       console.log(distinctDistrict);
@@ -66,6 +73,7 @@ function Header() {
                 type="select"
                 onChange={loadDistrictFromState}
                 name="selectMulti"
+                required
               >
                 <option></option>
                 {distinctState &&
@@ -79,10 +87,10 @@ function Header() {
               <Label>District</Label>
               <Input
                 type="select"
-                onChange={(e) => setCityValue(e.target.value)}
+                onChange={(e) => setDistrictValue(e.target.value)}
                 name="selectMulti"
+                required
               >
-                <option></option>
                 {district &&
                   district.length > 0 &&
                   district.map((item, index) => {
@@ -91,9 +99,17 @@ function Header() {
               </Input>
             </FormGroup>
             <FormGroup>
-              <Label for="Name">State</Label>
-              <Input type="text" name="name" id="name" placeholder="Add City" />
+              <Label for="Name">City Name</Label>
+              <Input
+                required
+                type="text"
+                onChange={(e) => setCityValue(e.target.value)}
+                name="name"
+                id="name"
+                placeholder="Add City"
+              />
             </FormGroup>
+            {error && <Alert color="danger">Please fill all the fields</Alert>}
           </Form>
         </ModalBody>
         <ModalFooter>
@@ -107,25 +123,28 @@ function Header() {
       </Modal>
 
       <Navbar color="light" light expand="md" sticky="true">
-        <NavbarBrand href="/">Conqoll</NavbarBrand>
+        <Link to="/">
+          <NavbarBrand className="logo">Conqoll</NavbarBrand>
+        </Link>
+
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
-            <NavItem>
-              <NavLink href="/All">All</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/Shortlisted">Shortlisted</NavLink>
-            </NavItem>
-            <Button
-              onClick={change}
-              className="header__createMovie_btn"
-              color="primary"
-            >
-              Add City
-            </Button>
+            <Link to="/">
+              <NavItem>
+                <NavLink>All</NavLink>
+              </NavItem>
+            </Link>
+            <Link to="shortlisted">
+              <NavItem>
+                <NavLink href="/Shortlisted">Shortlisted</NavLink>
+              </NavItem>
+            </Link>
           </Nav>
         </Collapse>
+        <Button onClick={change} className="header___btn" color="success">
+          Add City
+        </Button>
       </Navbar>
     </div>
   );

@@ -1,8 +1,19 @@
-.home{
-    width: 80%;
-    margin: auto;
-    margin-top: 20px;
+.homeContainer {
+  width: 100%;
 }
-.search{
-    margin-bottom: 20px;
+.home {
+  width: 80%;
+  margin: 7%;
+  margin-top: 20px;
+}
+.search {
+  margin-bottom: 20px;
+}
+.success {
+  margin-right: 20px;
+}
+.pagination {
+  float: right;
+  clear: left;
+  margin-bottom: 30px;
 }
