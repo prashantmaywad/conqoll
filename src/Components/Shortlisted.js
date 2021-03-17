@@ -2,7 +2,7 @@ import React from "react";
 import "./Home.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Table, Button } from "reactstrap";
-import { DELETESORTLISTED, DELETE } from "../redux/actions";
+import { DELETESORTLISTED } from "../redux/actions";
 
 function Shortlisted() {
   const dispatch = useDispatch();

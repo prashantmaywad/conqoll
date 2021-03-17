@@ -40,7 +40,7 @@ function Header() {
   const change = () => setModal(!modal);
   const addCity = (e) => {
     e.preventDefault();
-    if (StateValue == "" || DistrictValue == "" || CityValue == "") {
+    if (StateValue === "" || DistrictValue === "" || CityValue === "") {
       setError("Please select all fields");
     } else {
       dispatch({

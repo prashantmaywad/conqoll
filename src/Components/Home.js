@@ -102,7 +102,7 @@ function Home() {
           class="form-control search"
           type="text"
           onChange={search}
-          placeholder="Search for State, District or City"
+          placeholder="Search for State, District or "
           aria-label="Search"
         />
         <Pagination
