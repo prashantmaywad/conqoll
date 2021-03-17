@@ -9,10 +9,6 @@ function Shortlisted() {
   const data = useSelector((state) => state.Shortlisted.data);
   const deleteCity = (e) => {
     dispatch({
-      type: DELETE,
-      data: e,
-    });
-    dispatch({
       type: DELETESORTLISTED,
       data: e,
     });
@@ -43,7 +39,7 @@ function Shortlisted() {
                         deleteCity(element);
                       }}
                     >
-                      Delete
+                      Remove Shortlist
                     </Button>
                   </td>
                 </tr>
